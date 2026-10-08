@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/arogya-bachat/',
+  // Vercel serves from the root; GitHub Pages serves from /arogya-bachat/
+  base: process.env.VERCEL ? '/' : '/arogya-bachat/',
   plugins: [react(), tailwindcss()],
 })
