@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+/* ---------- Design tokens ---------- */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Deep navy for text & dark surfaces */
+  --color-navy-50: #f2f6fb;
+  --color-navy-100: #e3ebf5;
+  --color-navy-200: #c6d4e7;
+  --color-navy-400: #6b82a3;
+  --color-navy-500: #4a6285;
+  --color-navy-600: #344b6e;
+  --color-navy-700: #233a5c;
+  --color-navy-800: #142a4a;
+  --color-navy-900: #0b1f3a;
+  --color-navy-950: #06142a;
+
+  /* Very light page background */
+  --color-mist: #f5f9fa;
+
+  --shadow-card: 0 1px 2px rgb(11 31 58 / 0.04), 0 4px 16px -4px rgb(11 31 58 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(11 31 58 / 0.04), 0 18px 40px -12px rgb(11 31 58 / 0.18);
+  --shadow-glow: 0 10px 30px -10px rgb(5 150 105 / 0.45);
+
+  --animate-fade-up: fade-up 0.5s ease-out both;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ---------- Base (inside the base layer so utility classes can override it) ---------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    @apply bg-mist font-sans text-navy-700 antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-navy-900;
+  }
+}
+
+/* ---------- Reusable component classes ---------- */
+@utility container-page {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+@utility card {
+  @apply rounded-2xl bg-white shadow-card ring-1 ring-navy-900/5;
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition duration-200 focus-visible:outline-none focus-visible:ring-4;
+}
+
+@utility btn-primary {
+  @apply btn bg-emerald-600 text-white shadow-glow hover:-translate-y-0.5 hover:bg-emerald-700 focus-visible:ring-emerald-200;
+}
+
+@utility btn-secondary {
+  @apply btn bg-white text-navy-800 ring-1 ring-navy-200 hover:bg-navy-50 hover:ring-navy-400 focus-visible:ring-navy-100;
+}
+
+@utility field {
+  @apply w-full rounded-xl border border-navy-100 bg-white px-4 py-3 text-navy-900 placeholder:text-navy-400 transition outline-none hover:border-navy-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15;
+}
+
+@utility eyebrow {
+  @apply text-xs font-semibold tracking-[0.14em] text-emerald-700 uppercase;
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Subtle dotted pattern for decorative backgrounds */
+.bg-dots {
+  background-image: radial-gradient(rgb(11 31 58 / 0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
